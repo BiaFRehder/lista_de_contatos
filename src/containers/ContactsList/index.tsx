@@ -4,6 +4,7 @@ import { RootReducer } from '../../store'
 import { changeTerm } from '../../store/reducers/filter'
 
 import * as S from './styles'
+import { MainContainer, Input } from '../../styles'
 
 const ContactsList = () => {
   const dispatch = useDispatch()
@@ -38,13 +39,21 @@ const ContactsList = () => {
   const contacts = filterContacts()
 
   return (
-    <S.Container>
-      <S.Input
+    <MainContainer>
+      <Input
         type="text"
         placeholder="Pesquisar"
         value={term}
         onChange={(event) => dispatch(changeTerm(event.target.value))}
       />
+      <S.Inform>
+        Mostrando <span>{contacts.length}</span> contato(s)
+      </S.Inform>
+      <S.Table>
+        <S.TableTitle>Nome</S.TableTitle>
+        <S.TableTitle>E-mail</S.TableTitle>
+        <S.TableTitle>Telefone</S.TableTitle>
+      </S.Table>
       <ul>
         {contacts.map((c) => (
           <li key={c.id}>
@@ -59,7 +68,7 @@ const ContactsList = () => {
           </li>
         ))}
       </ul>
-    </S.Container>
+    </MainContainer>
   )
 }
 

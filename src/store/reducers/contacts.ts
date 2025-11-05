@@ -61,9 +61,37 @@ const contactsSlice = createSlice({
       if (contactIndex >= 0) {
         state.itens[contactIndex] = action.payload
       }
+    },
+    changeStatus: (
+      state,
+      action: PayloadAction<{ id: number; favorites: boolean }>
+    ) => {
+      const contactIndex = state.itens.findIndex(
+        (c) => c.id === action.payload.id
+      )
+      if (contactIndex >= 0) {
+        state.itens[contactIndex].favorite = action.payload.favorites
+      }
+    },
+    add: (state, action: PayloadAction<Omit<Contact, 'id'>>) => {
+      const contactAdded = state.itens.find(
+        (contact) =>
+          contact.name.toLowerCase() === action.payload.name.toLowerCase()
+      )
+
+      if (contactAdded) {
+        alert('Este contato já foi adicionado.')
+      } else {
+        const lastContact = state.itens[state.itens.length - 1]
+        const newContact = {
+          ...action.payload,
+          id: lastContact ? lastContact.id + 1 : 1
+        }
+        state.itens.push(newContact)
+      }
     }
   }
 })
 
-export const { remove, edit } = contactsSlice.actions
+export const { remove, edit, changeStatus, add } = contactsSlice.actions
 export default contactsSlice.reducer

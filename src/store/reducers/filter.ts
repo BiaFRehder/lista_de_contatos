@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-// import * as enums from '../../utils/enums/Contact'
+import * as enums from '../../utils/enums/Contact'
 
 type FilterState = {
   term?: string
   category: 'family' | 'business' | 'friends' | 'all' | 'favorites'
+  value?: enums.Category
 }
 
 const initialState: FilterState = {
@@ -19,13 +20,9 @@ const filterSlice = createSlice({
     changeTerm: (state, action: PayloadAction<string>) => {
       state.term = action.payload
     },
-    changeFilter: (
-      state,
-      action: PayloadAction<
-        'family' | 'business' | 'friends' | 'all' | 'favorites'
-      >
-    ) => {
-      state.category = action.payload
+    changeFilter: (state, action: PayloadAction<FilterState>) => {
+      state.category = action.payload.category
+      state.value = action.payload.value
     }
   }
 })

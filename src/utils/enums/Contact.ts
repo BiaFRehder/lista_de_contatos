@@ -1,5 +1,5 @@
 export enum Category {
   FAMILY = 'family',
-  BUSINESS = 'business',
-  FRIENDS = 'friends'
+  FRIENDS = 'friends',
+  BUSINESS = 'business'
 }

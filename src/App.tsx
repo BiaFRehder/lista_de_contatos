@@ -1,16 +1,27 @@
 import { Provider } from 'react-redux'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import store from './store'
 import GlobalStyle, { Container } from './styles'
-import Aside from './containers/Aside'
-import ContactsList from './containers/ContactsList'
+import Home from './pages/Home'
+import Register from './pages/Register'
+
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />
+  },
+  {
+    path: '/new',
+    element: <Register />
+  }
+])
 
 function App() {
   return (
     <Provider store={store}>
       <GlobalStyle />
       <Container>
-        <Aside />
-        <ContactsList />
+        <RouterProvider router={routes} />
       </Container>
     </Provider>
   )
