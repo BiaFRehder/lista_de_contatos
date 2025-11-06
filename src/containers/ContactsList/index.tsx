@@ -41,6 +41,7 @@ const ContactsList = () => {
   return (
     <MainContainer>
       <Input
+        name="search"
         type="text"
         placeholder="Pesquisar"
         value={term}

@@ -27,9 +27,9 @@ export const Star = styled.label`
   }
 `
 
-export const Table = styled.div`
+export const Table = styled.form`
   display: grid;
-  grid-template-columns: 1fr 100px;
+  grid-template-columns: 1fr 200px;
   align-items: center;
 
   @media (max-width: 1024px) {
@@ -65,13 +65,32 @@ export const DataTable = styled.div`
 `
 
 export const Edit = styled.div`
-  display: block;
+  display: flex;
+  color: ${variables.colorWhite};
+  align-items: center;
+  font-size: 12px;
+
+  label {
+    padding: 0 4px;
+    padding-top: 4px;
+  }
+
+  @media (max-width: 1024px) {
+    div {
+      display: flex;
+      justify-content; center;
+    }
+  }
+`
+
+export const EditButtons = styled.div`
+  padding: 8px;
+  justify-content: center;
 `
 
 export const Buttons = styled.div`
-  padding: 8px 0;
   display: flex;
-  justify-content: right;
+  justify-content: center;
 
   button {
     background-color: ${variables.colorBack2};

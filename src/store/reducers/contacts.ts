@@ -10,33 +10,33 @@ type ContactsState = {
 const initialState: ContactsState = {
   itens: [
     {
-      name: 'Bianca Fucuda Rehder',
-      email: 'bianca.fucuda@gmail.com',
-      phone: '64 99999-9999',
+      name: 'Bianca',
+      email: 'bia@gmail.com',
+      phone: '00 99999-9999',
       category: enums.Category.FAMILY,
       favorite: true,
       id: 1
     },
     {
-      name: 'Maria da Silva',
-      email: 'marias@gmail.com',
-      phone: '64 99999-8888',
-      category: enums.Category.FRIENDS,
+      name: 'José Gomes',
+      email: 'gomesj@gmail.com',
+      phone: '00 99999-7777',
+      category: enums.Category.BUSINESS,
       favorite: false,
       id: 2
     },
     {
-      name: 'José Gomes',
-      email: 'gomesj@gmail.com',
-      phone: '64 99999-7777',
-      category: enums.Category.BUSINESS,
+      name: 'Maria da Silva',
+      email: 'marias@gmail.com',
+      phone: '00 99999-8888',
+      category: enums.Category.FRIENDS,
       favorite: false,
       id: 3
     },
     {
       name: 'Paulo Reis',
       email: 'pauloreis@gmail.com',
-      phone: '64 99999-6666',
+      phone: '00 99999-6666',
       category: enums.Category.FRIENDS,
       favorite: true,
       id: 4
@@ -44,14 +44,22 @@ const initialState: ContactsState = {
   ]
 }
 
+function sortContactsAlphabetically(contacts: Contact[]) {
+  return contacts
+    .slice()
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' })
+    )
+}
+
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
     remove: (state, action: PayloadAction<number>) => {
-      state.itens = [
+      state.itens = sortContactsAlphabetically([
         ...state.itens.filter((contact) => contact.id !== action.payload)
-      ]
+      ])
     },
     edit: (state, action: PayloadAction<Contact>) => {
       const contactIndex = state.itens.findIndex(
@@ -60,6 +68,7 @@ const contactsSlice = createSlice({
 
       if (contactIndex >= 0) {
         state.itens[contactIndex] = action.payload
+        state.itens = sortContactsAlphabetically(state.itens)
       }
     },
     changeStatus: (
@@ -93,12 +102,17 @@ const contactsSlice = createSlice({
       } else if (phoneAdded) {
         alert('Um contato com esse número já foi adicionado.')
       } else {
-        const lastContact = state.itens[state.itens.length - 1]
+        // O Math é um objeto nativo do JS e o .max vai pegar o maior valor do mapeamento dos itens
+        const maxId = state.itens.length
+          ? Math.max(...state.itens.map((c) => c.id))
+          : 0
+
         const newContact = {
           ...action.payload,
-          id: lastContact ? lastContact.id + 1 : 1
+          id: maxId + 1
         }
         state.itens.push(newContact)
+        state.itens = sortContactsAlphabetically(state.itens)
       }
     },
     editStatus: (
@@ -122,6 +136,7 @@ const contactsSlice = createSlice({
           ...state.itens[contactIndex],
           ...action.payload
         }
+        state.itens = sortContactsAlphabetically(state.itens)
       }
     }
   }

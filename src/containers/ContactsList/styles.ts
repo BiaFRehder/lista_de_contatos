@@ -18,7 +18,7 @@ export const Inform = styled(TableTitle)`
 
 export const Table = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 100px;
+  grid-template-columns: 1fr 1fr 1fr 200px;
   padding: 16px 16px 0;
 
   @media (max-width: 1024px) {

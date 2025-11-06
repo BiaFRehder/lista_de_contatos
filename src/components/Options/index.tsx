@@ -32,21 +32,22 @@ const Options = ({ initialCategory, onChangeCategory }: Props) => {
   }
 
   return (
-    <S.Options>
-      {Object.values(enums.Category).map((cat) => (
-        <div key={cat}>
-          <input
-            type="radio"
-            name="category"
-            value={cat}
-            id={`category-${cat}`}
-            onChange={handleChange}
-            checked={category === cat}
-          />
-          <label htmlFor={`category-${cat}`}>{categoryLabels[cat]}</label>
-        </div>
-      ))}
-    </S.Options>
+    <>
+      {Object.values(enums.Category).map((cat) => {
+        return (
+          <S.Option key={cat}>
+            <input
+              id={`category-${cat}`}
+              type="radio"
+              value={cat}
+              onChange={handleChange}
+              checked={category === cat}
+            />
+            <label htmlFor={`category-${cat}`}>{categoryLabels[cat]}</label>
+          </S.Option>
+        )
+      })}
+    </>
   )
 }
 

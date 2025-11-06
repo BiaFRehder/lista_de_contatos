@@ -1,7 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import ContactsClass from '../../models/Contact'
 import { useDispatch } from 'react-redux'
 import { edit, remove, changeStatus } from '../../store/reducers/contacts'
+import useMaskPhone from '../../hooks/useMaskPhone'
 
 import * as S from './styles'
 import Options from '../Options'
@@ -20,9 +21,11 @@ const Contact = ({
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
   const [status, setStatus] = useState(category)
 
+  const { phone, setPhone, handleChange } = useMaskPhone('')
+
+  // UseEffect para toda a vez que o valor inicial for alterado
   useEffect(() => {
     if (initialName.length > 0) {
       setName(initialName)
@@ -39,8 +42,9 @@ const Contact = ({
     if (initialPhone.length > 0) {
       setPhone(initialPhone)
     }
-  }, [initialPhone])
+  }, [initialPhone, setPhone])
 
+  //  Função responsável por puxar a action de cancelar
   function cancel() {
     setEditing(false)
     setName(initialName)
@@ -48,26 +52,23 @@ const Contact = ({
     setPhone(initialPhone)
   }
 
+  // Função responsável por puxar a action de editar
   function save() {
     dispatch(edit({ name, phone, email, id, category: status, favorite }))
-    setEditing(false)
   }
 
+  // Função responsável por puxar a action de alterar status
   function contactStatus(event: ChangeEvent<HTMLInputElement>) {
     dispatch(changeStatus({ id, favorites: event.target.checked }))
   }
 
-  // function phoneMask(e: ChangeEvent<HTMLInputElement>) {
-  //   let mask = phone.replace(/\D/g, '')
+  // Função que não permite que o campo editado fique vazio
+  function saveEdition(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
 
-  //   if (mask.length > 11) return (mask = mask.slice(0, 11))
-
-  //   if (mask.length > 6) {
-  //     return mask.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3')
-  //   } else {
-  //     return mask.replace(/^(\d*)/, '($1')
-  //   }
-  // }
+    save()
+    setEditing(false)
+  }
 
   return (
     <S.Contact>
@@ -81,51 +82,62 @@ const Contact = ({
           id={id.toString()}
         />
       </S.Star>
-      <S.Table>
+      <S.Table onSubmit={saveEdition}>
         <S.DataTable>
           <div>
-            <label htmlFor="data_name">&#9786;</label>
+            <label htmlFor="name">&#9786;</label>
             <S.Name
-              name="data_name"
+              id="name"
               disabled={!editing}
               value={name}
               onChange={({ target }) => setName(target.value)}
+              required={editing}
+              type="text"
+              autoComplete="off"
             />
           </div>
           <div>
             <label htmlFor="email">&#9993;</label>
             <S.Name
-              name="data_email"
+              id="email"
               disabled={!editing}
               value={email}
               onChange={({ target }) => setEmail(target.value)}
+              required={editing}
+              type="email"
+              autoComplete="off"
             />
           </div>
           <div>
-            <label htmlFor="data_phone">&#9743;</label>
+            <label htmlFor="phone">&#9743;</label>
             <S.Name
-              name="data_phone"
+              id="phone"
               disabled={!editing}
               value={phone}
-              onChange={({ target }) => setPhone(target.value)}
+              onChange={({ target }) => handleChange(target.value)}
+              required={editing}
+              type="text"
+              autoComplete="off"
             />
           </div>
         </S.DataTable>
         <S.Buttons>
           {editing ? (
             <S.Edit>
-              <div>
-                <button title="Salvar" onClick={() => save()}>
+              <S.EditButtons>
+                <Options
+                  initialCategory={status}
+                  onChangeCategory={(cat) => setStatus(cat)}
+                />
+              </S.EditButtons>
+              <S.EditButtons>
+                <button type="submit" title="Salvar" onClick={() => save()}>
                   &#x1F583;
                 </button>
                 <button title="Cancelar" onClick={() => cancel()}>
                   &#x1F7AD;
                 </button>
-              </div>
-              <Options
-                initialCategory={status}
-                onChangeCategory={(cat) => setStatus(cat)}
-              />
+              </S.EditButtons>
             </S.Edit>
           ) : (
             <>
