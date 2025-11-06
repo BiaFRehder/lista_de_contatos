@@ -6,6 +6,7 @@ import { add } from '../../store/reducers/contacts'
 
 import { MainContainer, Title } from '../../styles'
 import * as S from './styles'
+import Options from '../../components/Options'
 
 const Form = () => {
   const dispatch = useDispatch()
@@ -31,12 +32,6 @@ const Form = () => {
     navigate('/')
   }
 
-  const categoryLabels: Record<enums.Category, string> = {
-    [enums.Category.FAMILY]: 'Família',
-    [enums.Category.FRIENDS]: 'Amigos',
-    [enums.Category.BUSINESS]: 'Trabalho'
-  }
-
   return (
     <MainContainer>
       <Title>Cadastar novo contato</Title>
@@ -59,22 +54,11 @@ const Form = () => {
           type="text"
           placeholder="Telefone"
         />
-        <S.Options>
-          <p>Status</p>
-          {Object.values(enums.Category).map((cat) => (
-            <div key={cat}>
-              <input
-                type="radio"
-                name="category"
-                value={cat}
-                id={`category-${cat}`}
-                onChange={(e) => setCategory(e.target.value as enums.Category)}
-                checked={category === cat}
-              />
-              <label htmlFor={`category-${cat}`}>{categoryLabels[cat]}</label>
-            </div>
-          ))}
-        </S.Options>
+        <p>Status</p>
+        <Options
+          initialCategory={category}
+          onChangeCategory={(cat) => setCategory(cat)}
+        />
         <S.AddButton>Adicionar contato</S.AddButton>
       </S.FormStyle>
     </MainContainer>

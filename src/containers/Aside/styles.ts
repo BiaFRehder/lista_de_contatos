@@ -16,7 +16,8 @@ export const Aside = styled.aside<Props>`
 
   @media (max-width: 1024px) {
     padding: 40px;
-    height: ${({ open }) => (open ? '400px' : '200px')};
+    height: ${({ open }) => (open ? '300px' : '200px')};
+    border: none;
     border-bottom: 1px solid ${variables.colorBack2};
   }
 `
@@ -58,13 +59,10 @@ export const Filtros = styled.div<Props>`
   @media (max-width: 1024px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 8px;
+    margin-top: 16px;
     border: none;
     opacity: ${({ open }) => (open ? '1' : '0')};
     transition: opacity 0 ease-in-out;
-    // opacity: ${({ open }) => (open ? '1' : '0')};
-    // pointer-events: ${({ open }) => (open ? 'all' : 'none')};
-    // transition: opacity 0.3s ease-in-out;
-    // z-index: 10;
   }
 `

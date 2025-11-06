@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export const Container = styled.div`
+  background-color: ${variables.colorBack1};
+  height: 100%;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 224px auto;
 
@@ -23,6 +26,11 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   color: ${variables.colorWhite};
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    padding: 16px 0;
+  }
 `
 
 export const MainContainer = styled.main`
@@ -32,12 +40,13 @@ export const MainContainer = styled.main`
 
   @media (max-width: 1024px) {
     overflow-y: hidden;
+    padding-top: 16px;
   }
 `
 
 export const Input = styled.input`
   padding: 8px;
-  margin-bottom: 8px;
+  margin: 8px 0;
   border-radius: 8px;
   font-weight: bold;
   color: #666666;
@@ -72,6 +81,7 @@ export const Button = styled(Link)`
   @media (max-width: 1024px) {
     width: 100%;
     padding: 8px 16px;
+    margin-top: 8px;
     border-radius: 8px;
     justify-content: space-between;
   }

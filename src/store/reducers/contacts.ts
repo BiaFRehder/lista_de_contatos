@@ -74,13 +74,24 @@ const contactsSlice = createSlice({
       }
     },
     add: (state, action: PayloadAction<Omit<Contact, 'id'>>) => {
-      const contactAdded = state.itens.find(
+      const nameAdded = state.itens.find(
         (contact) =>
           contact.name.toLowerCase() === action.payload.name.toLowerCase()
       )
+      const emailAdded = state.itens.find(
+        (contact) =>
+          contact.email.toLowerCase() === action.payload.email.toLowerCase()
+      )
+      const phoneAdded = state.itens.find(
+        (contact) => contact.phone === action.payload.phone
+      )
 
-      if (contactAdded) {
-        alert('Este contato já foi adicionado.')
+      if (nameAdded) {
+        alert('Um contato com este nome já foi adicionado.')
+      } else if (emailAdded) {
+        alert('Um contato com este email já foi adicionado.')
+      } else if (phoneAdded) {
+        alert('Um contato com esse número já foi adicionado.')
       } else {
         const lastContact = state.itens[state.itens.length - 1]
         const newContact = {
@@ -89,9 +100,33 @@ const contactsSlice = createSlice({
         }
         state.itens.push(newContact)
       }
+    },
+    editStatus: (
+      state,
+      action: PayloadAction<{
+        id: number
+        name: string
+        email: string
+        category: enums.Category
+      }>
+    ) => {
+      // const currentStatus = state.itens.find(
+      //   (contact) => contact.category === action.payload.category
+      // )
+      const contactIndex = state.itens.findIndex(
+        (contact) => contact.id === action.payload.id
+      )
+
+      if (contactIndex >= 0) {
+        state.itens[contactIndex] = {
+          ...state.itens[contactIndex],
+          ...action.payload
+        }
+      }
     }
   }
 })
 
-export const { remove, edit, changeStatus, add } = contactsSlice.actions
+export const { remove, edit, changeStatus, add, editStatus } =
+  contactsSlice.actions
 export default contactsSlice.reducer

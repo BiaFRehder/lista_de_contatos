@@ -28,5 +28,6 @@ export const Card = styled.div<Props>`
   @media (max-width: 1024px) {
     border-radius: 8px;
     margin: 0;
+    padding: 8px;
   }
 `

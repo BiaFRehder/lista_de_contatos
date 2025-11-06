@@ -15,20 +15,19 @@ const Aside = ({ showFilters }: Props) => {
 
   const clickMenu = () => {
     setMenu(!menu)
-    console.log(menu)
   }
 
   return (
     <S.Aside open={menu}>
-      <S.Header>
-        <Title>
-          <S.Icon>&#x1F4DE;</S.Icon>
-          <span>Contatos</span>
-        </Title>
-        <S.Burguer onClick={clickMenu}>&#9776;</S.Burguer>
-      </S.Header>
       {showFilters ? (
         <>
+          <S.Header>
+            <Title>
+              <S.Icon>&#x1F4DE;</S.Icon>
+              <span>Contatos</span>
+            </Title>
+            <S.Burguer onClick={clickMenu}>&#9776;</S.Burguer>
+          </S.Header>
           <AddButton />
           <S.Filtros open={menu}>
             <CardFilter title="Todos" categories={'all'} />
@@ -39,10 +38,18 @@ const Aside = ({ showFilters }: Props) => {
           </S.Filtros>
         </>
       ) : (
-        <Button to="/">
-          <span>Voltar</span>
-          <span>&larr;</span>
-        </Button>
+        <>
+          <S.Header>
+            <Title>
+              <S.Icon>&#x1F4DE;</S.Icon>
+              <span>Contatos</span>
+            </Title>
+          </S.Header>
+          <Button to="/">
+            <span>Voltar</span>
+            <span>&larr;</span>
+          </Button>
+        </>
       )}
     </S.Aside>
   )

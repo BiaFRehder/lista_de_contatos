@@ -64,6 +64,10 @@ export const DataTable = styled.div`
   }
 `
 
+export const Edit = styled.div`
+  display: block;
+`
+
 export const Buttons = styled.div`
   padding: 8px 0;
   display: flex;
