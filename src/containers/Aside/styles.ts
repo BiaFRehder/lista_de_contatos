@@ -31,14 +31,14 @@ export const Header = styled.div`
   }
 `
 
-export const Burguer = styled.span`
+export const Burguer = styled.img`
   display: none;
 
   @media (max-width: 1024px) {
     display: block;
     color: ${variables.colorWhite};
-    font-size: 24px;
-    font-weight: bold;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
   }

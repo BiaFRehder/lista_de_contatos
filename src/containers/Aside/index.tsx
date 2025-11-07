@@ -26,7 +26,11 @@ const Aside = ({ showFilters }: Props) => {
               <S.Icon>&#x1F4DE;</S.Icon>
               <span>Contatos</span>
             </Title>
-            <S.Burguer onClick={clickMenu}>&#9776;</S.Burguer>
+            <S.Burguer
+              onClick={clickMenu}
+              src="images/menu.png"
+              alt="Ícone para menu hamburguer"
+            />
           </S.Header>
           <AddButton />
           <S.Filtros open={menu}>

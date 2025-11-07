@@ -17,9 +17,9 @@ export const Star = styled.label`
   top: 8px;
   left: 8px;
 
-  span {
-    color: ${variables.colorWhite};
-    font-size: 16px;
+  img {
+    width: 16px;
+    height: 16px;
   }
 
   input {
@@ -50,14 +50,19 @@ export const DataTable = styled.div`
     display: none;
   }
 
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
   @media (max-width: 1024px) {
     display: block;
 
     label {
       display: flex;
+      align-items: center;
       justify-content: center;
       width: 40px;
-      font-size: 24px;
       padding: 4px;
       color: ${variables.textColor};
     }

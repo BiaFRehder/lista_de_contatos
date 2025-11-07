@@ -73,7 +73,11 @@ const Contact = ({
   return (
     <S.Contact>
       <S.Star htmlFor={id.toString()}>
-        {favorite ? <span>&#x2605;</span> : <span>&#x2606;</span>}
+        {favorite ? (
+          <img src="images/filled_star.png" alt="Ícone de estrela preenchida" />
+        ) : (
+          <img src="images/star.png" alt="Ícone de estrela vazada" />
+        )}
         <input
           checked={favorite === true}
           onChange={contactStatus}
@@ -85,7 +89,9 @@ const Contact = ({
       <S.Table onSubmit={saveEdition}>
         <S.DataTable>
           <div>
-            <label htmlFor="name">&#9786;</label>
+            <label htmlFor="name">
+              <img src="images/person.png" alt="Ícone de pessoa" />
+            </label>
             <S.Name
               id="name"
               disabled={!editing}
@@ -97,7 +103,9 @@ const Contact = ({
             />
           </div>
           <div>
-            <label htmlFor="email">&#9993;</label>
+            <label htmlFor="email">
+              <img src="images/envelope.png" alt="Ícone de envelope" />
+            </label>
             <S.Name
               id="email"
               disabled={!editing}
@@ -109,7 +117,9 @@ const Contact = ({
             />
           </div>
           <div>
-            <label htmlFor="phone">&#9743;</label>
+            <label htmlFor="phone">
+              <img src="images/telephone.png" alt="Ícone de telefone" />
+            </label>
             <S.Name
               id="phone"
               disabled={!editing}
@@ -132,20 +142,20 @@ const Contact = ({
               </S.EditButtons>
               <S.EditButtons>
                 <button type="submit" title="Salvar" onClick={() => save()}>
-                  &#x1F583;
+                  <img src="images/save.png" alt="Ícone de check" />
                 </button>
                 <button title="Cancelar" onClick={() => cancel()}>
-                  &#x1F7AD;
+                  <img src="images/cancel.png" alt="Ícone de x" />
                 </button>
               </S.EditButtons>
             </S.Edit>
           ) : (
             <>
               <button title="Editar" onClick={() => setEditing(true)}>
-                &#x1F589;
+                <img src="images/edit.png" alt="Ícone de lápis" />
               </button>
               <button title="Remover" onClick={() => dispatch(remove(id))}>
-                &#x1F5D1;
+                <img src="images/trash.png" alt="Ícone de lixo" />
               </button>
             </>
           )}
